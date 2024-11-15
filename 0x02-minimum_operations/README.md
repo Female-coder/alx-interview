@@ -1,19 +1,44 @@
-# ALX Minimum Operations Task
+Curriculum <br>
+**Short Specializations** <br>
 
-In a text file, there is a single character H. 
-Your text editor can execute only two operations in this file: 
-	* Copy All and Paste. 
-		Given a number n, write a method that calculates the fewest number of operations needed to result in 
-		exactly n H characters in the file.
+# 0x02. Minimum Operations
 
->Prototype: def minOperations(n)
->Returns an integer
->If n is impossible to achieve, return 0
+`Algorithm` `Python`
 
-** For Example: 
+#### Concepts
 
->> n = 9
+_For this project, look at these concepts:_
 
-	H => Copy All => Paste => HH => Paste =>HHH => Copy All => Paste => HHHHHH => Paste => HHHHHHHHH
+* [Technical Interview](https://www.alx-intranet.hbtn.io/concepts/100005)
 
-** Number of operations: 6
+## General Requirements
+
+* Allowed editors: `vi`, `vim`, `emacs`
+* Files interpreted/compiled on Ubuntu 14.04 LTS using `python3` (version 3.4.3)
+* Files first line exactly shebang `#!/usr/bin/python3`
+* `README.md` file mandatory
+* Code documented and using `PEP 8` style (version 1.7.x)
+* Files must be executable
+
+## General Learning & Setu
+
+`python.py`
+<details>
+  <summary>Click to show/hide file contents</summary>
+
+  ```python
+  #!/usr/bin/env python3
+  
+  import sys, argv
+  
+  if __name__ == "__main__":
+
+  class ClassAct:
+  	pass
+
+  def fn():
+      pass
+  ```
+</details>
+
+## Finally...

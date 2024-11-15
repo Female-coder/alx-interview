@@ -1,22 +1,15 @@
 Curriculum <br>
 **Short Specializations** <br>
 
-# 0x04. UTF-8 Validation
+# 0x00. Pascal's Triangle
 
-`Algorithm` `Python`
+`Algorithm` `Python` `Encapsulation`
 
 #### Concepts
 
 _For this project, look at these concepts:_
 
 * [Technical Interview](https://www.alx-intranet.hbtn.io/concepts/100005)
-
-## Resources
-
-**Read or watch:**
-
-* [UTF-8](https://www.en.wikipedia.org/wiki/UTF-8)
-* [Characters, Symbols, and the Unicode Miracle](https://www.youtube.com/watch?v=MijmeoH9LT4)
 
 ## General Requirements
 
@@ -27,7 +20,7 @@ _For this project, look at these concepts:_
 * Code documented and using `PEP 8` style (version 1.7.x)
 * Files executable
 
-## General Learning & Setup
+## General Learning & Setu
 
 `python.py`
 <details>

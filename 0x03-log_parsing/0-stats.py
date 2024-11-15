@@ -1,42 +1,57 @@
 #!/usr/bin/python3
 """
-script that reads stdin line by line and computes metrics
+Read stdin line by line and computes metrics
+Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1"
+<status code> <file size>, skip line if not this format
+After every 10minutes or keyboard interrupt (CTRL + C)
+print these from beginning: number of lines by status code
+possible status codes: 200, 301, 400, 401, 404, 405, and 500
+if status code isn't an integer, do not print it
+format: <status code>: <number>
+Status code must be printed in ascending order
 """
+import sys
 
 
-from sys import stdin
-
-status_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
-                "403": 0, "404": 0, "405": 0, "500": 0
-                }
-
-file = 0
+def print_msg(codes, file_size):
+    print("File size: {}".format(file_size))
+    for key, val in sorted(codes.items()):
+        if val != 0:
+            print("{}: {}".format(key, val))
 
 
-def print_log():
-    """logs output"""
+file_size = 0
+code = 0
+count_lines = 0
+codes = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0
+}
 
-    print("File size: {}".format(file))
-    for stat in sorted(status_codes.keys()):
-        if status_codes[stat]:
-            print("{}: {}".format(stat, status_codes[stat]))
+try:
+    for line in sys.stdin:
+        parsed_line = line.split()
+        parsed_line = parsed_line[::-1]
 
+        if len(parsed_line) > 2:
+            count_lines += 1
 
-if __name__ == "__main__":
-    count = 1
-    try:
-        for line in stdin:
-            try:
-                log = line.split()
-                if log[-2] in status_codes:
-                    status_codes[log[-2]] += 1
-                file += int(log[-1])
-            except Exception:
-                pass
-            if count % 10 == 0:
-                print_log()
-            count += 1
-    except KeyboardInterrupt:
-        print_log()
-        raise
-    print_log()
+            if count_lines <= 10:
+                file_size += int(parsed_line[0])
+                code = parsed_line[1]
+
+                if (code in codes.keys()):
+                    codes[code] += 1
+
+            if (count_lines == 10):
+                print_msg(codes, file_size)
+                count_lines = 0
+
+finally:
+    print_msg(codes, file_size)

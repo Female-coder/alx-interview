@@ -1,38 +1,44 @@
 #!/usr/bin/python3
-"""
-Method to determine if given data represents valid UTF-8 encoding
-Prototype: def validUTF8(data)
-Returns True if data is valid UTF-8 encoding, else return False
-Dataset can contain multiple characters
-Data will represent a list of integers
-"""
+"""Module for validUtf8 method"""
 
 
 def validUTF8(data):
+    """Determines if given data represents valid UTF-8 encoding
+    Args:
+        data: list of integers
+    Returns:
+        True if valid UTF-8 encoding, otherwise False
     """
-    Prototype: def validUTF8(data)
-    Returns True if data is valid UTF-8 encoding
-    else return False
-    """
-    count = 0
+    # Number of bytes in the current UTF-8 character
+    n_bytes = 0
 
-    for bit in data:
-        binary = bin(bit).replace('0b', '').rjust(8, '0')[-8:]
-        if count == 0:
-            if binary.startswith('110'):
-                count = 1
-            if binary.startswith('1110'):
-                count = 2
-            if binary.startswith('11110'):
-                count = 3
-            if binary.startswith('10'):
+    # Mask to check if the most significant bit is set or not
+    mask1 = 1 << 7
+
+    # Mask to check if the second most significant bit is set or not
+    mask2 = 1 << 6
+    for num in data:
+
+        # Get the number of set most significant bits in the byte if
+        # this is the starting byte of an UTF-8 character.
+        mask = 1 << 7
+        if n_bytes == 0:
+            while mask & num:
+                n_bytes += 1
+                mask = mask >> 1
+
+            # 1 byte characters
+            if n_bytes == 0:
+                continue
+
+            # Invalid scenarios according to the rules of the problem.
+            if n_bytes == 1 or n_bytes > 4:
                 return False
         else:
-            if not binary.startswith('10'):
+            # If this byte is a part of an existing UTF-8 character, then we
+            # simply have to look at the two most significant bits and we make
+            # use of the masks we defined before.
+            if not (num & mask1 and not (num & mask2)):
                 return False
-            count -= 1
-
-    if count != 0:
-        return False
-
-    return True
+        n_bytes -= 1
+    return n_bytes == 0

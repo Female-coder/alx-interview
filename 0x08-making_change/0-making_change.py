@@ -1,29 +1,25 @@
 #!/usr/bin/python3
-"""Determine the fewest number of coins
-needed to meet a given amount total
-"""
+"""Making change O(n)"""
 
 
 def makeChange(coins, total):
-    """Return fewest number of coins needed to meet total
-    0 if total is 0 or less, -1 if total cannot be met
-    """
-    if total <= 0:
+    """Clasic Bottom-Up dynamic programming"""
+    temp_value = 0
+    coins.sort(reverse=True)
+
+    if total < 0:
         return 0
 
-    # Coins validity check
-    if (coins is None or len(coins) == 0):
-        return -1
+    for coin in coins:
+        if total % coin <= total:
+            temp_value += total // coin
+            total = total % coin
 
-    change = 0
-    available_coins = sorted(coins, reverse=True)
-    change_left = total
+    return temp_value if total == 0 else -1
 
-    for coin in available_coins:
-        while (change_left % coin >= 0 and change_left >= coin):
-            change += int(change_left / coin)
-            change_left = change_left % coin
 
-    change = change if change_left == 0 else -1
+if __name__ == '__main__':
 
-    return change
+    print(makeChange([1, 2, 25], 37))
+
+    print(makeChange([1256, 54, 48, 16, 102], 1453))
